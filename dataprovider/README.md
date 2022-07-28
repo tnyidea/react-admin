@@ -1,1 +1,1 @@
-# react-admin-dataprovider
+# dataprovider
