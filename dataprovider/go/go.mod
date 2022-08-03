@@ -4,8 +4,8 @@ go 1.18
 
 require (
 	github.com/gorilla/mux v1.8.0
-	github.com/tnyidea/go-httpserver v0.0.1
-	github.com/tnyidea/go-sample-userdata v0.0.0-20220802154501-d1a03c866d06
+	github.com/tnyidea/go-httpserver v0.0.2
+	github.com/tnyidea/go-sample-userdata v0.0.1
 	github.com/tnyidea/typeutils v0.0.0
 )
 
