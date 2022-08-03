@@ -13,7 +13,6 @@ import (
 func AddApiV1UsersRouter(router *mux.Router, ctx context.Context) *mux.Router {
 	db := ctx.Value(config.UserServiceContextDatabase).(models.DB)
 
-	// FindAllUsersV1
 	router.HandleFunc("/api/v1/users", func(w http.ResponseWriter, r *http.Request) {
 		httpresponse.WriteDataProviderResponseData(w, r, endpoints.FindAllUsersV1(r, db))
 	}).Methods(http.MethodGet)
