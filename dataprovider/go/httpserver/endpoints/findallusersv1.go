@@ -17,28 +17,40 @@ func FindAllUsersV1(r *http.Request, db models.DB) response.DataProviderResponse
 	query := r.URL.Query()
 	listStart, err := strconv.Atoi(query.Get("_start"))
 	if err != nil {
-		// 400 error
+		return response.DataProviderResponseData{
+			Status: http.StatusBadRequest,
+		}
 	}
 	listEnd, err := strconv.Atoi(query.Get("_end"))
 	if err != nil {
-		// 400 error
+		return response.DataProviderResponseData{
+			Status: http.StatusBadRequest,
+		}
 	}
 	listSortColumn := query.Get("_sort")
 	if listSortColumn == "" {
-		// 400 error
+		return response.DataProviderResponseData{
+			Status: http.StatusBadRequest,
+		}
 	}
 	listSortOrder := query.Get("_order")
 	if listSortOrder == "" {
-		// 400 error
+		return response.DataProviderResponseData{
+			Status: http.StatusBadRequest,
+		}
 	}
 
 	users, err := db.FindAllUsers()
 	if err != nil {
-		// 500 error
+		return response.DataProviderResponseData{
+			Status: http.StatusInternalServerError,
+		}
 	}
 	totalCount, err := db.Count()
 	if err != nil {
-		// 500 error
+		return response.DataProviderResponseData{
+			Status: http.StatusInternalServerError,
+		}
 	}
 
 	// TODO determine best way to sort on other struct fields
