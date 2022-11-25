@@ -1,37 +1,14 @@
 package main
 
 import (
-	"github.com/tnyidea/go-httpserver"
-	"github.com/tnyidea/go-httpserver/sample/userservice/httpserver/config"
-	"github.com/tnyidea/go-sample-userdata/models"
-	usersrouter "github.com/tnyidea/react-admin/dataprovider/go/httpserver/router"
+	"github.com/gin-gonic/gin"
+	"github.com/tnyidea/react-admin/dataprovider/go/service/endpointsv1"
 	"log"
 )
 
 func main() {
-	port := 8080
+	router := gin.Default()
+	router.GET("/v1/address", endpointsv1.GetAllAddresses)
 
-	ctx, err := config.NewContext()
-	if err != nil {
-		log.Fatal("fatal: Error initializing server: ", err)
-	}
-
-	router := httpserver.NewRouter()
-	router = httpserver.AddDefaultRouter(router, ctx)
-	router = usersrouter.AddApiV1UsersRouter(router, ctx)
-
-	server := httpserver.HttpServer{
-		Port:    port,
-		Router:  router,
-		Context: ctx,
-	}
-	defer func() {
-		db := server.Context.Value(config.UserServiceContextDatabase).(models.DB)
-		err := db.Close()
-		if err != nil {
-			log.Fatal("fatal: Error while exiting:", err)
-		}
-	}()
-
-	log.Fatal(server.ListenAndServe())
+	log.Fatal(router.Run("localhost:8080"))
 }
