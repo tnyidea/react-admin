@@ -2,14 +2,19 @@ package endpointsv1
 
 import (
 	"github.com/gin-gonic/gin"
-	servicetypes "github.com/tnyidea/react-admin/dataprovider/go/types"
+	datatypes "github.com/tnyidea/react-admin/dataprovider/go/data/types"
 	"net/http"
 )
 
 func GetAllAddresses(c *gin.Context) {
 	// https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0
-	var addresses []servicetypes.Address
+	var addresses []datatypes.Address
 	c.IndentedJSON(http.StatusOK, addresses)
+}
+
+func GetAddress(c *gin.Context) {
+	var address datatypes.Address
+	c.IndentedJSON(http.StatusOK, address)
 }
 
 //func FindAllUsersV1(r *http.Request, db models.DB) response.DataProviderResponseData {
